@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DorkBuilder</title>
+    <link href="assets/css/sidebar.css" rel="stylesheet">
+</head>
+<style>
+    #result-request {
+        width: 90%;
+        display: block;
+        margin: auto;
+    }
+</style>
+<body>
+
+<div>
+    Requête:
+    <br>
+    <textarea id="result-request" name="" rows="5"></textarea>
+
+    <br>
+
+    <select id="dork-list" name="">
+        <option value="search">search</option>
+        <option value="searchTerm">search term</option>
+        <option value="cache">cache</option>
+        <option value="filetype">file type</option>
+        <option value="site">site</option>
+        <option value="related">related:</option>
+        <option value="intitle">intitle:</option>
+        <option value="allintitle">allintitle:</option>
+        <option value="inurl">inurl:</option>
+        <option value="allinurl">allinurl:</option>
+        <option value="intext">intext:</option>
+        <option value="allintext">allintext:</option>
+        <option value="AROUND">AROUND:</option>
+        <option value="weather">weather:</option>
+        <option value="stocks">stocks:</option>
+        <option value="map">map:</option>
+        <option value="movie">movie:</option>
+        <option value="source">source:</option>
+        <option value="inanchor">inanchor:</option>
+        <option value="allinanchor">allinanchor:</option>
+        <option value="blogurl">blogurl:</option>
+        <option value="loc">loc:</option>
+        <option value="location">location:</option>
+        <option value="inpostauthor">inpostauthor:</option>
+        <option value="allinpostauthor">allinpostauthor:</option>
+        <option value="inposttitle">inposttitle:</option>
+        <option value="link">link:</option>
+        <option value="id">id:</option>
+        <option value="daterange">daterange:</option>
+        <option value="phonebook">phonebook:</option>
+    </select>
+    <input id="add-dork" type="button" value="add">
+
+    <ul id="builder">
+
+    </ul>
+</div>
+
+<script src="assets/lib/jquery.js"></script>
+<script src="assets/lib/sortable.js"></script>
+<script src="sidebar.js"></script>
+</body>
+</html>
