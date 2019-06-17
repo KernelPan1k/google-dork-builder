@@ -1,6 +1,4 @@
-function openSidebar() {
-  browser.sidebarAction.open();
-}
+const openSidebar = () => browser.sidebarAction.open();
 
 const operators = [
   "filetype",
@@ -41,5 +39,5 @@ browser.contextMenus.onClicked.addListener((info, tab) => {
   browser.runtime.sendMessage({
     selectedText,
     operator
-  });
+  }).catch(err => console.log(err));
 });
