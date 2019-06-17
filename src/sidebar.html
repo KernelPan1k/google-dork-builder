@@ -14,6 +14,25 @@
     textarea {
         width: 100%;
     }
+
+    footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: rgba(12, 12, 13, 0.1);
+        border-top: 2px solid rgba(12, 12, 13, 0.4);
+    }
+
+    footer ul {
+        list-style: none;
+    }
+
+    footer li {
+        display: inline-block;
+        margin-right: 20px;
+        text-align: center;
+    }
 </style>
 <body>
 
@@ -31,10 +50,36 @@
 
         <p>
             <input id="search" type="button" value="Search">
+            <input id="save" type="button" value="Save">
+            <input id="edit" type="button" value="Edit" disabled>
         </p>
     </form>
 </div>
 
+<div>
+    <table id="dorks-storage">
+        <thead>
+        <tr>
+            <th>Request</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</div>
+
+<footer>
+    <ul>
+        <li>
+            <a href="https://kernel-panik.me" target="_blank">kernel-panik.me</a>
+        </li>
+        <li>
+            <a href="https://github.com/KernelPan1k/google-dork-builder" target="_blank">Source code</a>
+        </li>
+    </ul>
+</footer>
 <script src="sidebar.js"></script>
 </body>
 </html>

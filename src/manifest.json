@@ -23,6 +23,7 @@
     }
   },
   "permissions": [
-    "contextMenus"
+    "contextMenus",
+    "storage"
   ]
 }
