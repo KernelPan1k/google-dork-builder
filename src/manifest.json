@@ -1,12 +1,28 @@
 {
   "manifest_version": 2,
-  "name": "Dork Builder",
+  "name": "Google Dork Builder",
   "version": "0.1",
-  "default_locale": "en",
-  "description": "",
+  "description": "Easily create your queries with google operators from the sidebar or by selecting text from the context menu.",
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "browser_action": {
+    "default_icon": {
+      "16": "icons/logo16.png",
+      "32": "icons/logo32.png"
+    }
+  },
   "sidebar_action": {
-    "default_title": "Dork Builder",
+    "default_title": "Google Dork Builder",
     "default_panel": "sidebar.html",
-    "default_icon": "assets/img/sidebar_icon.png"
-  }
+    "default_icon": {
+      "16": "icons/logo16.png",
+      "32": "icons/logo32.png"
+    }
+  },
+  "permissions": [
+    "contextMenus"
+  ]
 }
