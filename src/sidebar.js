@@ -4,6 +4,7 @@ const dorksTable = document.querySelector("#dorks-storage");
 const dorksTableBody = dorksTable.querySelector("tbody");
 const editRow = document.querySelector("#edit");
 const storage = browser.storage.sync;
+let dorksSavedList = {};
 
 let rowIdEdit = null;
 
@@ -24,14 +25,10 @@ const insertInField = (text) => {
 
 const generateId = () => Math.random().toString(36).substr(2, 9);
 
-const onError = (error) => {
-  console.error(`Error: ${ error }`);
-};
-
 const getDorksInStorage = () => storage.get();
 
-const editDorkInStorage = (id, request) => getDorksInStorage().then(dorks => {
-  const list = dorks.list || [];
+const editDorkInStorage = (id, request) => {
+  const list = dorksSavedList.list || [];
 
   for (let i = 0, l = list.length; i < l; i++) {
     if (list[i].id === id) {
@@ -39,27 +36,27 @@ const editDorkInStorage = (id, request) => getDorksInStorage().then(dorks => {
     }
   }
 
-  dorks.list = list;
-  storage.set(dorks);
+  dorksSavedList.list = list;
+  storage.set(dorksSavedList);
 
   populateTable();
-});
+};
 
-const removeDorkInStorage = id => getDorksInStorage().then(dorks => {
-  let list = dorks.list || [];
+const removeDorkInStorage = id => {
+  let list = dorksSavedList.list || [];
   list = list.filter(el => el.id !== id);
-  dorks.list = list;
-  storage.set(dorks);
+  dorksSavedList.list = list;
+  storage.set(dorksSavedList);
   populateTable();
-});
+};
 
-const saveDorkInStorage = data => getDorksInStorage().then(dorks => {
-  const list = dorks.list || [];
+const saveDorkInStorage = data => {
+  const list = dorksSavedList.list || [];
   list.push(data);
-  dorks.list = list;
-  storage.set(dorks);
+  dorksSavedList.list = list;
+  storage.set(dorksSavedList);
   populateTable();
-});
+};
 
 const resetEdit = () => {
   rowIdEdit = null;
@@ -105,13 +102,17 @@ const bindEvent = () => {
   getRows(".run-row", bindRun);
 };
 
-const populateTable = () => {
-  getDorksInStorage().then(dorks => {
-    const list = dorks.list || [];
-    let rows = "";
+const getDorkList = cb => getDorksInStorage().then(dorks => {
+  dorksSavedList = dorks;
+  cb();
+});
 
-    for (let i = 0, l = list.length; i < l; i++) {
-      rows += `<tr data-row-id="${ list[i].id }">
+const populateTable = () => {
+  const list = dorksSavedList.list || [];
+  let rows = "";
+
+  for (let i = 0, l = list.length; i < l; i++) {
+    rows += `<tr data-row-id="${ list[i].id }">
                 <td>${ list[i].request }</td>
                 <td>
                     <a class="remove-row button"><img src="icons/delete.png" alt="delete" /></a>
@@ -119,12 +120,10 @@ const populateTable = () => {
                     <a class="run-row button"><img src="icons/search.png" alt="search" /></a>
                 </td>
                </tr>`;
-    }
+  }
 
-    dorksTableBody.innerHTML = rows;
-    bindEvent();
-
-  }).catch(onError);
+  dorksTableBody.innerHTML = rows;
+  bindEvent();
 };
 
 const init = () => {
@@ -154,10 +153,8 @@ const init = () => {
 
   dorkList.innerHTML = options;
 
-  populateTable();
+  getDorkList(populateTable);
 };
-
-// browser.storage.sync.clear();
 
 document.querySelector("#save").addEventListener('click', () => {
   const request = requestField.value.trim();
