@@ -1,0 +1,71 @@
+#form-dork, #table-dork {
+    width: 90%;
+    display: block;
+    margin: auto;
+}
+
+textarea {
+    width: 100%;
+    background-color: rgba(0, 0, 255, .1)
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(12, 12, 13, 0.1);
+    border-top: 2px solid rgba(12, 12, 13, 0.4);
+}
+
+footer ul {
+    list-style: none;
+}
+
+footer li {
+    display: inline-block;
+    margin-right: 20px;
+    text-align: center;
+}
+
+thead {
+    background-color: rgba(12, 12, 13, 0.1);
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid rgba(12, 12, 13, 0.2);
+}
+
+td:first-child {
+    max-width: 0;
+    overflow: hidden;
+}
+
+td:last-child {
+    width: 80px;
+}
+
+tbody tr:nth-child(even) {
+    background-color: rgba(67, 219, 0, 0.1);
+}
+
+tbody tr:nth-child(odd) {
+    background-color: rgba(219, 170, 0, 0.1);
+}
+
+.button {
+    display: inline-block;
+    float: right;
+    width: 25px;
+    height: 25px;
+
+}
+
+.button img {
+    width: 25px;
+}
