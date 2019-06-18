@@ -109,6 +109,13 @@ const getDorkList = cb => getDorksInStorage().then(dorks => {
 
 const populateTable = () => {
   const list = dorksSavedList.list || [];
+
+  if (!list.length) {
+    dorksTable.style.display = "none";
+    return;
+  }
+
+  dorksTable.style.display = "block";
   let rows = "";
 
   for (let i = 0, l = list.length; i < l; i++) {
