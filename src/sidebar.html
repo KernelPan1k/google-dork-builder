@@ -8,38 +8,40 @@
 
 <body>
 
-<div>
-    <form id="form-dork">
-        <p>
-            <label>Request:</label>
-            <textarea id="result-request" rows="5"></textarea>
-        </p>
+<div id="content">
+    <div>
+        <form id="form-dork">
+            <p>
+                <label>Request:</label>
+                <textarea id="result-request" rows="5"></textarea>
+            </p>
 
-        <p>
-            <select id="dork-list"></select>
-            <input id="add-dork" type="button" value="Add operator">
-        </p>
+            <p>
+                <select id="dork-list"></select>
+                <input id="add-dork" type="button" value="Add operator">
+            </p>
 
-        <p>
-            <input id="search" type="button" value="Search">
-            <input id="save" type="button" value="Save">
-            <input id="edit" type="button" value="Edit" disabled>
-        </p>
-    </form>
-</div>
+            <p>
+                <input id="search" type="button" value="Search">
+                <input id="save" type="button" value="Save">
+                <input id="edit" type="button" value="Edit" disabled>
+            </p>
+        </form>
+    </div>
 
-<div id="table-dork">
-    <table id="dorks-storage">
-        <thead>
-        <tr>
-            <th>Request</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
+    <div id="table-dork">
+        <table id="dorks-storage">
+            <thead>
+            <tr>
+                <th>Request</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
 
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <footer>

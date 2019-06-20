@@ -4,18 +4,21 @@
     margin: auto;
 }
 
+#content {
+    min-height: calc(100vh - 80px);
+    margin-bottom: 30px;
+}
+
 textarea {
     width: 100%;
     background-color: rgba(0, 0, 255, .1)
 }
 
 footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
     width: 100%;
     background-color: rgba(12, 12, 13, 0.1);
     border-top: 2px solid rgba(12, 12, 13, 0.4);
+    height: 50px;
 }
 
 footer ul {
