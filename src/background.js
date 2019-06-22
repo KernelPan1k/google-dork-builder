@@ -15,7 +15,13 @@ const operators = [
   "source",
   "define",
   "related",
-  "blogurl"
+  "blogurl",
+  "stocks",
+  "define",
+  "loc",
+  "location",
+  "map",
+  "movie"
 ];
 
 browser.contextMenus.removeAll();

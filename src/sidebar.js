@@ -3,12 +3,74 @@ const requestField = document.querySelector("#result-request");
 const dorksTable = document.querySelector("#dorks-storage");
 const dorksTableBody = dorksTable.querySelector("tbody");
 const editRow = document.querySelector("#edit");
-const storage = browser.storage.sync;
-let dorksSavedList = {};
+const BASE_URL = "https://www.google.com/search?q=";
+let storage = chrome.storage.sync;
 
+let dorksSavedList = {};
 let rowIdEdit = null;
 
-const insertInField = (text) => {
+const operators = [
+  "filetype",
+  "site",
+  "intitle",
+  "allintitle",
+  "inurl",
+  "allinurl",
+  "intext",
+  "allintext",
+  "inanchor",
+  "allinanchor",
+  "cache",
+  "source",
+  "define",
+  "related",
+  "blogurl",
+  "stocks",
+  "define",
+  "loc",
+  "location",
+  "map",
+  "movie"
+];
+
+let options = "";
+
+for (let i = 0, l = operators.length; i < l; i++) {
+  options += `<option value="${ operators[i] }:">${ operators[i] }</option>`;
+}
+
+dorkList.innerHTML = options;
+
+const update = dorks => {
+  if (dorks) {
+    dorksSavedList = dorks;
+    populateTable();
+  }
+};
+
+const storeChanged = () => {
+  storage.get(null, update);
+  console.log("Storage update");
+};
+
+const onChanged = chrome.storage.onChanged;
+
+if (!onChanged.hasListener(storeChanged)) {
+  onChanged.addListener(storeChanged);
+}
+
+const initStorage = ok => {
+  if (!ok) {
+    storage = chrome.storage.local;
+    console.log("Use local storage");
+  }
+
+  storeChanged();
+};
+
+storage.get(null, initStorage);
+
+const insertInField = text => {
   // https://stackoverflow.com/questions/1064089/inserting-a-text-where-cursor-is-using-javascript-jquery/1064139
   const scrollPos = requestField.scrollTop;
   let strPos = requestField.selectionStart;
@@ -25,8 +87,6 @@ const insertInField = (text) => {
 
 const generateId = () => Math.random().toString(36).substr(2, 9);
 
-const getDorksInStorage = () => storage.get();
-
 const editDorkInStorage = (id, request) => {
   const list = dorksSavedList.list || [];
 
@@ -37,7 +97,10 @@ const editDorkInStorage = (id, request) => {
   }
 
   dorksSavedList.list = list;
-  storage.set(dorksSavedList);
+
+  storage.set(dorksSavedList, () => {
+    console.log(`Edit: id => ${ id }, request => ${ request }`);
+  });
 
   populateTable();
 };
@@ -46,7 +109,11 @@ const removeDorkInStorage = id => {
   let list = dorksSavedList.list || [];
   list = list.filter(el => el.id !== id);
   dorksSavedList.list = list;
-  storage.set(dorksSavedList);
+
+  storage.set(dorksSavedList, () => {
+    console.log(`Remove: id => ${ id }`);
+  });
+
   populateTable();
 };
 
@@ -54,7 +121,11 @@ const saveDorkInStorage = data => {
   const list = dorksSavedList.list || [];
   list.push(data);
   dorksSavedList.list = list;
-  storage.set(dorksSavedList);
+
+  storage.set(dorksSavedList, () => {
+    console.log(`Save: id => ${ data.id }, request => ${ data.request }`);
+  });
+
   populateTable();
 };
 
@@ -78,7 +149,7 @@ const bindRun = event => {
     return;
   }
 
-  const url = "https://www.google.com/search?q=" + request;
+  const url = BASE_URL + request;
   browser.tabs.create({ url, active: true });
 };
 
@@ -101,11 +172,6 @@ const bindEvent = () => {
   getRows(".remove-row", bindRemove);
   getRows(".run-row", bindRun);
 };
-
-const getDorkList = cb => getDorksInStorage().then(dorks => {
-  dorksSavedList = dorks;
-  cb();
-});
 
 const populateTable = () => {
   const list = dorksSavedList.list || [];
@@ -131,36 +197,6 @@ const populateTable = () => {
 
   dorksTableBody.innerHTML = rows;
   bindEvent();
-};
-
-const init = () => {
-  const operators = [
-    "filetype",
-    "site",
-    "intitle",
-    "allintitle",
-    "inurl",
-    "allinurl",
-    "intext",
-    "allintext",
-    "inanchor",
-    "allinanchor",
-    "cache",
-    "source",
-    "define",
-    "related",
-    "blogurl"
-  ];
-
-  let options = "";
-
-  for (let i = 0, l = operators.length; i < l; i++) {
-    options += `<option value="${ operators[i] }:">${ operators[i] }</option>`;
-  }
-
-  dorkList.innerHTML = options;
-
-  getDorkList(populateTable);
 };
 
 document.querySelector("#save").addEventListener('click', () => {
@@ -195,7 +231,7 @@ document.querySelector("#search").addEventListener('click', () => {
     return;
   }
 
-  const url = "https://www.google.com/search?q=" + request;
+  const url = BASE_URL + request;
   browser.tabs.create({ url, active: true });
 }, false);
 
@@ -204,5 +240,3 @@ browser.runtime.onMessage.addListener(request => {
   const operator = request.operator;
   insertInField(operator + selectedText);
 });
-
-init();
