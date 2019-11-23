@@ -149,7 +149,7 @@ const bindRun = event => {
     return;
   }
 
-  const url = BASE_URL + request;
+  const url = BASE_URL + encodeURIComponent(request);
   browser.tabs.create({ url, active: true });
 };
 
