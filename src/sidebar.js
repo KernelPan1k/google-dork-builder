@@ -236,7 +236,16 @@ document.querySelector("#search").addEventListener('click', () => {
 }, false);
 
 browser.runtime.onMessage.addListener(request => {
-  const selectedText = request.selectedText;
-  const operator = request.operator;
-  insertInField(operator + selectedText);
+  if (!request) {
+    return;
+  }
+
+  if (request.dork) {
+    const id = generateId();
+    saveDorkInStorage({ id, request: request.dork });
+  } else if (request.selectedText && request.operator) {
+    const selectedText = request.selectedText;
+    const operator = request.operator;
+    insertInField(operator + selectedText);
+  }
 });

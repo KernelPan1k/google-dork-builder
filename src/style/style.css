@@ -72,3 +72,9 @@ tbody tr:nth-child(odd) {
 .button img {
     width: 25px;
 }
+
+.ghd {
+    float: right;
+    display: block;
+    margin: 20px;
+}
