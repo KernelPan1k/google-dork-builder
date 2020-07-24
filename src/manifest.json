@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "Google Dork Builder",
+  "name": "Google Dork Builder (dev)",
   "version": "0.6",
   "description": "Easily create your queries with google operators from the sidebar or by selecting text from the context menu.",
   "background": {
@@ -35,7 +35,8 @@
   },
   "permissions": [
     "contextMenus",
-    "storage"
+    "storage",
+    "notifications"
   ],
   "browser_specific_settings": {
     "gecko": {

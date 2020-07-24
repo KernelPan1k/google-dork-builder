@@ -37,13 +37,29 @@ for (let i = 0, l = operators.length; i < l; i++) {
 browser.browserAction.onClicked.addListener(openSidebar);
 
 browser.contextMenus.onClicked.addListener((info, tab) => {
+  openSidebar();
+
   const selectedText = (info.selectionText || '').trim();
   const operator = info.menuItemId;
 
-  openSidebar();
+  setTimeout(() => {
+    browser.runtime.sendMessage({
+      selectedText,
+      operator
+    }).catch(err => console.log(err));
+  }, 350);
+});
 
-  browser.runtime.sendMessage({
-    selectedText,
-    operator
-  }).catch(err => console.log(err));
+browser.runtime.onMessage.addListener((request) => {
+  if (request.isOpen) {
+    browser.sidebarAction.isOpen({}).then(isOpen => {
+      if (!isOpen) {
+        browser.notifications.create({
+          type: "basic",
+          title: "Google Dork Builder",
+          message: "You must open the sidebar to save your dorks."
+        });
+      }
+    });
+  }
 });

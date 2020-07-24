@@ -41,6 +41,10 @@ function sendToSidebar(event) {
     dork = null;
   }
 
+  const checkSidebarSending = browser.runtime.sendMessage({
+    isOpen: "the sidebar is open please"
+  });
+
   if (dork) {
     browser.runtime.sendMessage({
       dork,
