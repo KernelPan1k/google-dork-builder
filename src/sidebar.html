@@ -9,28 +9,32 @@
 <body>
 
 <div id="content">
-    <a class="ghd" href="https://www.exploit-db.com/google-hacking-database" target="_blank">
-        Open Google hacking database
-    </a>
+    <ul>
+        <li>
+            <a class="ghd" href="https://www.exploit-db.com/google-hacking-database" target="_blank">
+                Open Google hacking database
+            </a>
+        </li>
+    </ul>
     <br>
 
     <div>
         <form id="form-dork">
-            <p>
-                <label>Request:</label>
+            <fieldset>
+                <legend>Request:</legend>
                 <textarea id="result-request" rows="5"></textarea>
-            </p>
+            </fieldset>
 
-            <p>
+            <fieldset>
                 <select id="dork-list"></select>
                 <input id="add-dork" type="button" value="Add operator">
-            </p>
+            </fieldset>
 
-            <p>
+            <fieldset>
                 <input id="search" type="button" value="Search">
                 <input id="save" type="button" value="Save">
                 <input id="edit" type="button" value="Edit" disabled>
-            </p>
+            </fieldset>
         </form>
     </div>
 
@@ -38,7 +42,7 @@
         <table id="dorks-storage">
             <thead>
             <tr>
-                <th>Request</th>
+                <th>Dorks</th>
                 <th>Actions</th>
             </tr>
             </thead>

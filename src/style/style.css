@@ -1,7 +1,67 @@
+a {
+    outline: none
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0 0 20px;
+    font-weight: normal;
+    font-family: Monaco, Bitstream Vera Sans Mono, Lucida Console, Terminal, monospace;
+    color: #b5e853;
+    letter-spacing: -0.03em;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(181, 232, 83, 0.1), 0 0 10px rgba(181, 232, 83, 0.1)
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #000 url(../images/bkg.png) 0 0;
+    color: #eaeaea;
+    font-size: 16px;
+    line-height: 1.5;
+    font-family: Monaco, Bitstream Vera Sans Mono, Lucida Console, Terminal, monospace
+}
+
+li {
+    line-height: 1.4
+}
+
+table {
+    width: 100%;
+    margin: 0 0 20px 0
+}
+
+th {
+    text-align: left;
+    border-bottom: 1px dashed #b5e853;
+    padding: 5px 10px
+}
+
+td {
+    padding: 5px 10px
+}
+
+hr {
+    height: 0;
+    border: 0;
+    border-bottom: 1px dashed #b5e853;
+    color: #b5e853
+}
+
+a {
+    color: #63c0f5;
+    text-shadow: 0 0 5px rgba(104, 182, 255, 0.5);
+    text-decoration: none
+}
+
+ul li {
+    list-style-image: url(../images/bullet.png)
+}
+
 #form-dork, #table-dork {
     width: 90%;
     display: block;
     margin: auto;
+    margin-top: 20px;
 }
 
 #content {
@@ -11,7 +71,8 @@
 
 textarea {
     width: 100%;
-    background-color: rgba(0, 0, 255, .1)
+    background-color: rgba(0, 0, 255, .1);
+    color: #b5e853;
 }
 
 footer {
@@ -64,17 +125,10 @@ tbody tr:nth-child(odd) {
 .button {
     display: inline-block;
     float: right;
-    width: 25px;
-    height: 25px;
-
+    width: 22px;
+    height: 22px;
 }
 
 .button img {
-    width: 25px;
-}
-
-.ghd {
-    float: right;
-    display: block;
-    margin: 20px;
+    width: 22px;
 }
