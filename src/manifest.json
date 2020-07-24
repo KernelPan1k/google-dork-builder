@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Google Dork Builder",
   "version": "0.7",
-  "description": "Easily create your queries with google operators from the sidebar or by selecting text from the context menu.",
+  "description": "Easily create your queries with google operators from the sidebar, by selecting text from the context menu or use exploit-db.com",
   "background": {
     "scripts": [
       "background.js"
