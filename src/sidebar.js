@@ -8,6 +8,7 @@ let storage = chrome.storage.sync;
 
 let dorksSavedList = {};
 let rowIdEdit = null;
+let dataTableNode = null;
 
 const operators = [
   "filetype",
@@ -134,47 +135,43 @@ const resetEdit = () => {
   editRow.setAttribute("disabled", "disabled");
 };
 
-const getRows = (selector, cb) => {
-  Array.prototype.slice.call(dorksTable.querySelectorAll(selector))
-  .forEach(row => {
-    row.addEventListener('click', cb, false);
-  });
-};
-
 const bindRun = event => {
-  const parent = event.currentTarget.closest("tr");
-  const request = parent.querySelector("td").innerHTML.trim();
+  const data = dataTableNode.row($(event.currentTarget).parents('tr')).data();
 
-  if (!request) {
+  if (!data.dorks) {
     return;
   }
 
-  const url = BASE_URL + encodeURIComponent(request);
+  const url = BASE_URL + encodeURIComponent(data.dorks);
   browser.tabs.create({ url, active: true });
 };
 
 const bindRemove = event => {
-  const parent = event.currentTarget.closest("tr");
-  const id = parent.getAttribute("data-row-id");
-  removeDorkInStorage(id);
+  const data = dataTableNode.row($(event.currentTarget).parents('tr')).data();
+  removeDorkInStorage(data.id);
 };
 
 const bindEdit = event => {
-  const parent = event.currentTarget.closest("tr");
-  rowIdEdit = parent.getAttribute("data-row-id");
-  requestField.value = parent.querySelector("td").innerHTML.trim();
+  const data = dataTableNode.row($(event.currentTarget).parents('tr')).data();
+  rowIdEdit = data.id;
+  requestField.value = data.dorks;
   editRow.removeAttribute("disabled");
 };
 
 const bindEvent = () => {
-  resetEdit();
-  getRows(".edit-row", bindEdit);
-  getRows(".remove-row", bindRemove);
-  getRows(".run-row", bindRun);
+  $(dorksTableBody).on('click', ".edit-row", bindEdit);
+  $(dorksTableBody).on('click', ".remove-row", bindRemove);
+  $(dorksTableBody).on('click', ".run-row", bindRun);
 };
 
 const populateTable = () => {
   const list = dorksSavedList.list || [];
+
+  if ($.fn.DataTable.isDataTable(dorksTable)) {
+    $(dorksTable).DataTable().destroy();
+  }
+
+  $(dorksTableBody).empty();
 
   if (!list.length) {
     dorksTable.style.visibility = "hidden";
@@ -182,21 +179,39 @@ const populateTable = () => {
   }
 
   dorksTable.style.visibility = "visible";
-  let rows = "";
+  const data = [];
 
   for (let i = 0, l = list.length; i < l; i++) {
-    rows += `<tr data-row-id="${ list[i].id }">
-                <td>${ list[i].request }</td>
-                <td>
-                    <a class="remove-row button"><img src="icons/delete.png" alt="delete" /></a>
-                    <a class="edit-row button"><img src="icons/edit.png" alt="edit" /></a>
-                    <a class="run-row button"><img src="icons/search.png" alt="search" /></a>
-                </td>
-               </tr>`;
+    data.push({ dorks: list[i].request, id: list[i].id });
   }
 
-  dorksTableBody.innerHTML = rows;
-  bindEvent();
+  let buttonHtml = '<a class="remove-row button"><img src="icons/delete.png" alt="delete" /></a>';
+  buttonHtml += '<a class="edit-row button"><img src="icons/edit.png" alt="edit" /></a>';
+  buttonHtml += '<a class="run-row button"><img src="icons/search.png" alt="search" /></a>';
+
+  dataTableNode = $(dorksTable).DataTable({
+    data,
+    columnDefs: [
+      {
+        targets: [1],
+        visible: false,
+        searchable: false,
+      },
+      {
+        targets: [2],
+        data: null,
+        searchable: false,
+        defaultContent: buttonHtml,
+      },
+    ],
+    columns: [
+      { data: 'dorks' },
+      { data: 'id' },
+      { data: 'actions' },
+    ]
+  });
+
+  resetEdit();
 };
 
 document.querySelector("#save").addEventListener('click', () => {
@@ -249,3 +264,5 @@ browser.runtime.onMessage.addListener(request => {
     insertInField(operator + selectedText);
   }
 });
+
+bindEvent();
