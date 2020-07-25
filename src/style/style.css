@@ -111,14 +111,14 @@ td:first-child {
 }
 
 td:last-child {
-    width: 80px;
+    width: 70px !important;
 }
 
-tbody tr:nth-child(even) {
+#table-dork tbody tr:nth-child(even) {
     background-color: rgba(181, 232, 83, 0.4) !important;
 }
 
-tbody tr:nth-child(odd) {
+#table-dork tbody tr:nth-child(odd) {
     background-color: rgba(99, 192, 245, .4) !important;
 }
 
@@ -130,4 +130,16 @@ tbody tr:nth-child(odd) {
 
 .button img {
     width: 22px;
+}
+
+.dataTables_length,
+.dataTables_info,
+.dataTables_wrapper .dataTables_paginate .paginate_button.previous,
+.dataTables_wrapper .dataTables_paginate .paginate_button.next,
+.dataTables_filter {
+    color: #b5e853 !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
+    color: #333 !important;
 }

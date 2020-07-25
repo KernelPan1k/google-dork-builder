@@ -188,15 +188,24 @@ const populateTable = () => {
     data,
     columnDefs: [
       {
+        targets: [0],
+        searchable: true,
+        sortable: true,
+        visible: true,
+      },
+      {
         targets: [1],
         visible: false,
         searchable: false,
+        sortable: false,
       },
       {
         targets: [2],
         data: null,
         searchable: false,
         defaultContent: buttonHtml,
+        sortable: false,
+        visible: true,
       },
     ],
     columns: [
