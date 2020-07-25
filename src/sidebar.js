@@ -158,20 +158,16 @@ const bindEdit = event => {
   editRow.removeAttribute("disabled");
 };
 
-const bindEvent = () => {
-  $(dorksTableBody).on('click', ".edit-row", bindEdit);
-  $(dorksTableBody).on('click', ".remove-row", bindRemove);
-  $(dorksTableBody).on('click', ".run-row", bindRun);
-};
-
 const populateTable = () => {
   const list = dorksSavedList.list || [];
-
-  if ($.fn.DataTable.isDataTable(dorksTable)) {
-    $(dorksTable).DataTable().destroy();
-  }
+  const data = [];
 
   $(dorksTableBody).empty();
+
+  if (null !== dataTableNode) {
+    dataTableNode.destroy();
+    dataTableNode = null;
+  }
 
   if (!list.length) {
     dorksTable.style.visibility = "hidden";
@@ -179,7 +175,6 @@ const populateTable = () => {
   }
 
   dorksTable.style.visibility = "visible";
-  const data = [];
 
   for (let i = 0, l = list.length; i < l; i++) {
     data.push({ dorks: list[i].request, id: list[i].id });
@@ -265,4 +260,6 @@ browser.runtime.onMessage.addListener(request => {
   }
 });
 
-bindEvent();
+$(dorksTableBody).on('click', ".edit-row", bindEdit);
+$(dorksTableBody).on('click', ".remove-row", bindRemove);
+$(dorksTableBody).on('click', ".run-row", bindRun);

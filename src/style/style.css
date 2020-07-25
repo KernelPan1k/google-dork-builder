@@ -115,16 +115,15 @@ td:last-child {
 }
 
 tbody tr:nth-child(even) {
-    background-color: rgba(67, 219, 0, 0.1);
+    background-color: rgba(181, 232, 83, 0.4) !important;
 }
 
 tbody tr:nth-child(odd) {
-    background-color: rgba(219, 170, 0, 0.1);
+    background-color: rgba(99, 192, 245, .4) !important;
 }
 
 .button {
     display: inline-block;
-    float: right;
     width: 22px;
     height: 22px;
 }
