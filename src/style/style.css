@@ -110,10 +110,6 @@ td:first-child {
     overflow: hidden;
 }
 
-td:last-child {
-    width: 70px !important;
-}
-
 #table-dork tbody tr:nth-child(even) {
     background-color: rgba(181, 232, 83, 0.4) !important;
 }
@@ -142,4 +138,9 @@ td:last-child {
 
 .dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
     color: #333 !important;
+}
+
+#fix-width, #table-dork td:last-child {
+    width: 40px !important;
+    max-width: 40px !important;
 }

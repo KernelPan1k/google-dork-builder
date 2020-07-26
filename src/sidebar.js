@@ -186,6 +186,7 @@ const populateTable = () => {
 
   dataTableNode = $(dorksTable).DataTable({
     data,
+    autoWidth: true,
     columnDefs: [
       {
         targets: [0],
