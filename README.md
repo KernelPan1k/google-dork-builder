@@ -8,3 +8,5 @@
 
 
 - Pack: zip -r -FS ../../google-dork-builder.zip * --exclude .git
+
+- thanks to gitmylo for the kind contribution
