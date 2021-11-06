@@ -21,7 +21,9 @@ const operators = [
   "loc",
   "location",
   "map",
-  "movie"
+  "movie",
+  "before",
+  "after"
 ];
 
 browser.contextMenus.removeAll();

@@ -10,34 +10,37 @@ let dorksSavedList = {};
 let rowIdEdit = null;
 let dataTableNode = null;
 
-const operators = [
-  "filetype",
-  "site",
-  "intitle",
-  "allintitle",
-  "inurl",
-  "allinurl",
-  "intext",
-  "allintext",
-  "inanchor",
-  "allinanchor",
-  "cache",
-  "source",
-  "define",
-  "related",
-  "blogurl",
-  "stocks",
-  "define",
-  "loc",
-  "location",
-  "map",
-  "movie"
-];
+const operators = {
+  "filetype:": "search for files ending in the specified filetype",
+  "site:": "search on a specific website. subdomains have to be specified as well, use www to ignore subdomains",
+  "intitle:": "the title needs to contain this string",
+  "allintitle:": "the title needs to contain these words",
+  "inurl:": "the url needs to contain this string",
+  "allinurl:": "the url needs to contain these words",
+  "intext:": "the body needs to contain this string",
+  "allintext:": "the body needs to contain these words",
+  "inanchor:": "there have to be links on the site that contain this string",
+  "allinanchor:": "there have to be links on the site that contain these words",
+  "cache:": "search in the cache, for deleted websites",
+  "source:": "source from going to the page",
+  "define:": "get the definition of a word",
+  "related:": "get results related to the input string",
+  "blogurl:": "search for blogs (?)",
+  "stocks:": "search for stocks",
+  "loc:": "search for a location",
+  "location:": "search for a location",
+  "map:": "search for a map",
+  "movie:": "search for a movie",
+  "before:": "filter results on everything that happened before a date",
+  "after:": "filter results on everything that happened after a date",
+  "OR": "Combines results of 2 queries",
+};
 
 let options = "";
 
-for (let i = 0, l = operators.length; i < l; i++) {
-  options += `<option value="${ operators[i] }:">${ operators[i] }</option>`;
+for (var operator in operators) {
+//for (let i = 0, l = operators.length; i < l; i++) {
+  options += `<option title="${operators[operator]}" value="${operator}">${operator}</option>`;
 }
 
 dorkList.innerHTML = options;
